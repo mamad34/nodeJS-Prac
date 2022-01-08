@@ -19,6 +19,7 @@ const requestHandler = (req, res) => {
       console.log(chunk); // output : <Buffer 6d 65 73 73 61 67 65 3d 77 71 65 71 65>
       body.push(chunk);
     });
+
     req.on("end", () => {
       // happen when its done parsing the incoming req data
       const parsedBody = Buffer.concat(body).toString();
@@ -27,7 +28,7 @@ const requestHandler = (req, res) => {
       // fs.writeFileSync("message.txt", message); // next lines will run after SyncFileWrite happen
       fs.writeFile("message.txt", message, (err) => {
         res.statusCode = 302; // status code of 302 is for redirection
-        res.setHeader("Location", "/");
+        // res.setHeader("Location", "/");
         return res.end();
         // (err) func will run after we complete writing the file
       });

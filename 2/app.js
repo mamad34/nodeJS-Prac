@@ -11,4 +11,8 @@ const routes = require("./routes");
 const server = http.createServer(routes);
 // run the function stored in routes for incoming req
 
-server.listen(3000);
+server.listen(4000, () => {
+  console.log("SERVER READY AT PORT 4000");
+});
+
+// npm nodemon --save-dev
