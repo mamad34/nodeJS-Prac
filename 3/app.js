@@ -8,6 +8,7 @@ const app = express();
 const adminRoutes = require("./routes/admin");
 
 const shopRoutes = require("./routes/shop");
+
 const req = require("express/lib/request");
 
 const path = require("path");
@@ -29,6 +30,10 @@ const path = require("path");
 app.use(bodyParser.urlencoded({ extended: false })); // this is included by some middlewares that
 //use next() to run all the other middleWare below and it will give us the body of reqs
 
+app.use(express.static(path.join(__dirname, "public"))); // this will serve static files
+// with this user can access to the public path
+// it will take any req that tryes to find some file
+// it will forward the req to the public folder
 app.use("/admin", adminRoutes); // only routes start with admin will go to the adminroutes
 app.use(shopRoutes);
 app.use((req, res, next) => {
