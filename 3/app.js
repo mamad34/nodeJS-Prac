@@ -5,6 +5,13 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+app.set("view engine", "pug");
+// app set let us set any value globally
+// view engine tells express for any dynamic template
+// trying to render use this engine (pug)
+app.set("views", "views");
+// & views allows us to tell express where to find these dynamic views
+// second views is the views folder in project
 const adminRoutes = require("./routes/admin");
 
 const shopRoutes = require("./routes/shop");
@@ -34,7 +41,7 @@ app.use(express.static(path.join(__dirname, "public"))); // this will serve stat
 // with this user can access to the public path
 // it will take any req that tryes to find some file
 // it will forward the req to the public folder
-app.use("/admin", adminRoutes); // only routes start with admin will go to the adminroutes
+app.use("/admin", adminRoutes.routes); // only routes start with admin will go to the adminroutes
 app.use(shopRoutes);
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, "views", "not-found.html"));
